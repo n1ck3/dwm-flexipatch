@@ -1068,10 +1068,6 @@ ResourcePref resources[] = {
 
 #include <X11/XF86keysym.h>
 
-// static const char *plexampcmd[] = { "plexamp.sh", NULL };
-static const char *plexampcmd[] = { "/home/nicke/Applications/Plexamp-4.12.0_b485663b1703b7f9c635b26577fd4f95.AppImage", NULL };
-static const char *trezorcmd[] = { "/home/nicke/Applications/Trezor-Suite-25.3.3-linux-x86_64_d964c135e2c716175740d7a331b98ef3.AppImage", NULL };
-
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	#if KEYMODES_PATCH
