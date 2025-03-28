@@ -441,8 +441,6 @@ static const char *const autostart[] = {
 #if RENAMED_SCRATCHPADS_PATCH
 //static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 
-// UGH, AppImages......
-// static const char *plexspcmd_p[] = {"p", "plexamp.sh", NULL};
 static const char *plexspcmd_p[] = {"p", "/home/nicke/Applications/Plexamp-4.12.0_b485663b1703b7f9c635b26577fd4f95.AppImage", NULL};
 static const char *trezorspcmd_t[] = {"t", "/home/nicke/Applications/Trezor-Suite-25.3.3-linux-x86_64_d964c135e2c716175740d7a331b98ef3.AppImage", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
@@ -1100,7 +1098,6 @@ static const Key keys[] = {
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_t,          spawn,                  {.v = trezorcmd } },
 
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
-
 
 	/*
 	{ 0, 				            0x1008ff11,                 spawn,     {.v = voldowncmd } },
