@@ -444,7 +444,6 @@ static const char *const autostart[] = {
 // UGH, AppImages......
 static const char *plexspcmd_p[] = {"p", "plexamp.sh", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
-//static const char *plexampscratchpadcmd[] = SHCMD("plexamp.sh");
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
@@ -1066,6 +1065,9 @@ ResourcePref resources[] = {
 
 #include <X11/XF86keysym.h>
 
+// static const char *plexampcmd[] = { "plexamp.sh", NULL };
+static const char *plexampcmd[] = { "/home/nicke/Applications/Plexamp-4.11.5_48f7fd1716d12034e8d8aef03994a8d8.AppImage", "--no-sandbox", "%U", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	#if KEYMODES_PATCH
@@ -1087,7 +1089,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_4,          spawn,                  SHCMD("scrot-area.sh") },
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
 	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
-	{ MODKEY|MODALTKEY,             XK_p,          spawn,                  SHCMD("plexamp.sh") },
+	{ MODKEY|MODALTKEY,             XK_p,          spawn,                  {.v = plexampcmd } },
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 
 	/*
@@ -1100,8 +1102,8 @@ static const Key keys[] = {
 	{ 0, 				            XF86XK_AudioLowerVolume,    spawn,     SHCMD("pamixer -d 5 && pkill -RTMIN+10 dwmblocks") },
 	{ 0, 				            XF86XK_AudioRaiseVolume,    spawn,     SHCMD("pamixer -i 5 && pkill -RTMIN+10 dwmblocks") },
 	{ 0, 				            XF86XK_AudioMute,           spawn,     SHCMD("pamixer -t && pkill -RTMIN+10 dwmblocks") },
-	{ 0, 				            XF86XK_MonBrightnessDown,   spawn,     SHCMD("brightnessctl set 10%-") },
-	{ 0, 				            XF86XK_MonBrightnessUp,     spawn,     SHCMD("brightnessctl set +10%") },
+	{ 0, 				            XF86XK_MonBrightnessDown,   spawn,     SHCMD("brightnessctl set 10%- && pkill -RTMIN+11 dwmblocks") },
+	{ 0, 				            XF86XK_MonBrightnessUp,     spawn,     SHCMD("brightnessctl set +10% && pkill -RTMIN+11 dwmblocks") },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
@@ -1315,8 +1317,6 @@ static const Key keys[] = {
     // { MODKEY|ControlMask,           XK_grave,      setscratch,             {.v = scratchpadcmd } },
     // { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
     
-	//{ MODKEY|ShiftMask,             XK_p,          togglescratch,          SHCMD("plexamp.sh") },
-
 	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = plexspcmd_p } },
 	{ MODKEY|ShiftMask,             XK_b,          togglescratch,          {.v = bitwardenspcmd_b } },
 
