@@ -1104,6 +1104,7 @@ static const Key keys[] = {
 	{ 0, 				            XF86XK_AudioMute,           spawn,     SHCMD("pamixer -t && pkill -RTMIN+10 dwmblocks") },
 	{ 0, 				            XF86XK_MonBrightnessDown,   spawn,     SHCMD("brightnessctl set 10%- && pkill -RTMIN+11 dwmblocks") },
 	{ 0, 				            XF86XK_MonBrightnessUp,     spawn,     SHCMD("brightnessctl set +10% && pkill -RTMIN+11 dwmblocks") },
+	{ 0, 				            XF86XK_Display,             spawn,     SHCMD("autorandr --change") },
 	#if RIODRAW_PATCH
 	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
