@@ -442,7 +442,9 @@ static const char *const autostart[] = {
 //static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 
 // UGH, AppImages......
-static const char *plexspcmd_p[] = {"p", "plexamp.sh", NULL};
+// static const char *plexspcmd_p[] = {"p", "plexamp.sh", NULL};
+static const char *plexspcmd_p[] = {"p", "/home/nicke/Applications/Plexamp-4.12.0_b485663b1703b7f9c635b26577fd4f95.AppImage", NULL};
+static const char *trezorspcmd_t[] = {"t", "/home/nicke/Applications/Trezor-Suite-25.3.3-linux-x86_64_d964c135e2c716175740d7a331b98ef3.AppImage", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
 
 #elif SCRATCHPADS_PATCH
@@ -543,6 +545,7 @@ static const Rule rules[] = {
 	#if RENAMED_SCRATCHPADS_PATCH
 	//RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
 	RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1)
+	RULE(.instance = "trezor suite", .scratchkey = 't', .isfloating = 1)
 	RULE(.instance = "bitwarden", .scratchkey = 'b', .isfloating = 1)
 	#elif SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
@@ -1066,7 +1069,8 @@ ResourcePref resources[] = {
 #include <X11/XF86keysym.h>
 
 // static const char *plexampcmd[] = { "plexamp.sh", NULL };
-static const char *plexampcmd[] = { "/home/nicke/Applications/Plexamp-4.11.5_48f7fd1716d12034e8d8aef03994a8d8.AppImage", "--no-sandbox", "%U", NULL };
+static const char *plexampcmd[] = { "/home/nicke/Applications/Plexamp-4.12.0_b485663b1703b7f9c635b26577fd4f95.AppImage", NULL };
+static const char *trezorcmd[] = { "/home/nicke/Applications/Trezor-Suite-25.3.3-linux-x86_64_d964c135e2c716175740d7a331b98ef3.AppImage", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
@@ -1089,8 +1093,11 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_4,          spawn,                  SHCMD("scrot-area.sh") },
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
 	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
-	{ MODKEY|MODALTKEY,             XK_p,          spawn,                  {.v = plexampcmd } },
+	{ MODKEY|MODALTKEY|ShiftMask,   XK_p,          spawn,                  {.v = plexampcmd } },
+	{ MODKEY|MODALTKEY|ShiftMask,   XK_t,          spawn,                  {.v = trezorcmd } },
+
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
+
 
 	/*
 	{ 0, 				            0x1008ff11,                 spawn,     {.v = voldowncmd } },
@@ -1319,6 +1326,7 @@ static const Key keys[] = {
     // { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
     
 	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = plexspcmd_p } },
+	{ MODKEY|ShiftMask,             XK_t,          togglescratch,          {.v = trezorspcmd_t } },
 	{ MODKEY|ShiftMask,             XK_b,          togglescratch,          {.v = bitwardenspcmd_b } },
 
 	#elif SCRATCHPADS_PATCH
