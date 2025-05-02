@@ -541,7 +541,7 @@ static const Rule rules[] = {
 	//RULE(.class = "Plexamp", .isfloating = 1)
 	// RULE(.class = "Gimp", .tags = 1 << 4)
 	// RULE(.class = "Firefox", .tags = 1 << 7)
-	RULE(.class = "St", .isterminal = 1)
+	// RULE(.class = "St", .isterminal = 1)
 	#if RENAMED_SCRATCHPADS_PATCH
 	//RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
 	RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1)
@@ -1122,7 +1122,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_b,          toggletopbar,           {0} },
 	#endif // TOGGLETOPBAR_PATCH
 	#if TAB_PATCH
-	{ MODKEY|ControlMask,           XK_b,          tabmode,                {-1} },
+	{ MODKEY|ControlMask|ShiftMask, XK_b,          tabmode,                {-1} },
 	  #endif // TAB_PATCH
 	#if FOCUSMASTER_PATCH || FOCUSMASTER_RETURN_PATCH
 	{ MODKEY|ControlMask,           XK_Return,     focusmaster,            {0} },
