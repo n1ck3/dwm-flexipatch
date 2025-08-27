@@ -1090,8 +1090,6 @@ static const Key keys[] = {
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
 	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
 	{ MODKEY|ShiftMask,		XK_Escape,     spawn,                  SHCMD("nd.sh") },
-	{ MODKEY|MODALTKEY|ShiftMask,   XK_p,          spawn,                  {.v = plexampcmd } },
-	{ MODKEY|MODALTKEY|ShiftMask,   XK_t,          spawn,                  {.v = trezorcmd } },
 
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 
