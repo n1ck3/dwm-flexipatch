@@ -446,6 +446,7 @@ static const char *const autostart[] = {
 static const char *plexspcmd_p[] = {"p", "/home/nicke/Applications/Plexamp-4.12.0_b485663b1703b7f9c635b26577fd4f95.AppImage", NULL};
 static const char *trezorspcmd_t[] = {"t", "/home/nicke/Applications/Trezor-Suite-25.3.3-linux-x86_64_d964c135e2c716175740d7a331b98ef3.AppImage", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
+static const char *resourcesspcmd_o[] = {"o", "/usr/bin/resources", NULL};
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
@@ -547,6 +548,7 @@ static const Rule rules[] = {
 	RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1)
 	RULE(.instance = "trezor suite", .scratchkey = 't', .isfloating = 1)
 	RULE(.instance = "bitwarden", .scratchkey = 'b', .isfloating = 1)
+	RULE(.instance = "resources", .scratchkey = 'o', .isfloating = 1)
 	#elif SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 	#endif // SCRATCHPADS_PATCH
@@ -1093,6 +1095,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_4,          spawn,                  SHCMD("scrot-area.sh") },
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
 	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
+	{ MODKEY|ShiftMask,		XK_Escape,     spawn,                  SHCMD("nd.sh") },
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_p,          spawn,                  {.v = plexampcmd } },
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_t,          spawn,                  {.v = trezorcmd } },
 
@@ -1328,6 +1331,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = plexspcmd_p } },
 	{ MODKEY|ShiftMask,             XK_t,          togglescratch,          {.v = trezorspcmd_t } },
 	{ MODKEY|ShiftMask,             XK_b,          togglescratch,          {.v = bitwardenspcmd_b } },
+	{ MODKEY|ShiftMask,             XK_o,          togglescratch,          {.v = resourcesspcmd_o } },
 
 	#elif SCRATCHPADS_PATCH
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
@@ -1606,7 +1610,7 @@ static const Button buttons[] = {
 	{ ClkClientWin,         MODKEY,              Button7,        resizemousescroll, {.v = &scrollargs[3]} },
 	#endif // TAPRESIZE_PATCH
 	#if DRAGCFACT_PATCH && CFACTS_PATCH
-	{ ClkClientWin,         MODKEY|ShiftMask,    Button3,        dragcfact,      {0} },
+	{ ClkClientWin,         MODKEY|ShiftMask,    Button1,        dragcfact,      {0} },
 	#endif // DRAGCFACT_PATCH
 	#if DRAGMFACT_PATCH
 	{ ClkClientWin,         MODKEY|ShiftMask,    Button3,        dragmfact,      {0} },
