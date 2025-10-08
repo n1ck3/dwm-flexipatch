@@ -9,7 +9,7 @@
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
 static const int corner_radius           = 10;
 #else
-static const unsigned int borderpx       = 3;   /* border pixel of windows */
+static const unsigned int borderpx       = 2;   /* border pixel of windows */
 #endif // ROUNDED_CORNERS_PATCH
 #if BAR_BORDER_PATCH
 /* This allows the bar border size to be explicitly set separately from borderpx.
@@ -173,9 +173,9 @@ static const char font[]                 = "monospace 10";
 static const char *fonts[]               = { "Hack Nerd Font Mono:size=12" };
 /* static const char *fonts[]               = { "DroidSansMonoForPowerline:size=12" }; */
 #endif // BAR_PANGO_PATCH
-/* static const char dmenufont[]            = "monospace:size=12; */
-static const char dmenufont[]            = "Hack Nerd Font Mono:size=12";
-/* static const char dmenufont[]            = "DroidSansMonoForPowerline:size=12"; */
+// static const char dmenufont[]            = "monospace:size=12;
+// static const char dmenufont[]            = "Hack Nerd Font Mono:size=12";
+// static const char dmenufont[]            = "DroidSansMonoForPowerline:size=12";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
@@ -441,8 +441,12 @@ static const char *const autostart[] = {
 #if RENAMED_SCRATCHPADS_PATCH
 //static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 
-// static const char *plexspcmd_p[] = {"p", "/home/nicke/Applications/Plexamp-4.12.4_54648c9af8078d0bc4aa085c506204c4.AppImage", NULL};
-static const char *plexspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-plexamp.sh", NULL};
+// Music Player
+// static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-plexamp.sh", NULL};
+// static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-jellyamp.sh", NULL};
+// static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-jellyfin-tui.sh", NULL};
+static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-feishin.sh", NULL};
+
 static const char *trezorspcmd_t[] = {"t", "/home/nicke/.local/scripts/launch-trezor.sh", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
 static const char *resourcesspcmd_o[] = {"o", "/usr/bin/resources", NULL};
@@ -532,11 +536,12 @@ static const Rule rules[] = {
 	 *	WM_WINDOW_ROLE(STRING) = role
 	 *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
 	 */
-	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
-	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
-	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
-	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-	RULE(.class = "Textsnatcher", .isfloating = 1)
+	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .iscentered = 1)
+	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1, .iscentered = 1)
+	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1, .iscentered = 1)
+	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Textsnatcher", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Nsxiv", .isfloating = 1, .iscentered = 1)
 	//RULE(.class = "Bitwarden", .isfloating = 1)
 	//RULE(.class = "Plexamp", .isfloating = 1)
 	// RULE(.class = "Gimp", .tags = 1 << 4)
@@ -544,12 +549,18 @@ static const Rule rules[] = {
 	// RULE(.class = "St", .isterminal = 1)
 	#if RENAMED_SCRATCHPADS_PATCH
 	//RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
-	RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1)
-	RULE(.instance = "trezor suite", .scratchkey = 't', .isfloating = 1)
-	RULE(.instance = "bitwarden", .scratchkey = 'b', .isfloating = 1)
-	RULE(.instance = "resources", .scratchkey = 'o', .isfloating = 1)
+
+	// Music Player
+	// RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
+	// RULE(.instance = "jellyamp", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
+	// RULE(.title = "jellyfin-tui", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
+	RULE(.class = "feishin", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
+
+	RULE(.instance = "trezor suite", .scratchkey = 't', .isfloating = 1, .iscentered = 1)
+	RULE(.instance = "bitwarden", .scratchkey = 'b', .isfloating = 1, .iscentered = 1)
+	RULE(.instance = "resources", .scratchkey = 'o', .isfloating = 1, .iscentered = 1)
 	#elif SCRATCHPADS_PATCH
-	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+	// RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1, .iscentered = 1)
 	#endif // SCRATCHPADS_PATCH
 };
 
@@ -918,16 +929,21 @@ static const char *dmenucmd[] = {
 	"-m", dmenumon,
 	#endif // NODMENU_PATCH
 	"-i",
+	"-h",
+	"30",
 	"-l",
-	"20",
+	"10",
+	"-fn",
+	"Hack Nerd Font Mono:pixelsize=16",
 	#if BAR_DMENUMATCHTOP_PATCH
 	topbar ? NULL : "-b",
 	#endif // BAR_DMENUMATCHTOP_PATCH
 	NULL
 };
 
-static const char *dmenumojishortcmd[] = { "dmenumoji", NULL };
-static const char *dmenumojilongcmd[] = { "dmenumoji", "long", NULL };
+static const char *dmenumojicmd[] = { "dmenumoji", NULL };
+// static const char *dmenumojishortcmd[] = { "dmenumoji", NULL };
+// static const char *dmenumojilongcmd[] = { "dmenumoji", "long", NULL };
 
 static const char *termcmd[]  = { "st", NULL };
 /* static const char *termcmd[]  = { "ghostty", NULL }; */
@@ -1076,8 +1092,9 @@ static const Key keys[] = {
 	#endif // KEYMODES_PATCH
     
 	{ MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
-	{ MODALTKEY|ControlMask,        XK_space,      spawn,                  {.v = dmenumojishortcmd } },
-	{ MODKEY|MODALTKEY|ControlMask, XK_space,      spawn,                  {.v = dmenumojilongcmd } },
+	{ MODALTKEY|ControlMask,        XK_space,      spawn,                  {.v = dmenumojicmd } },
+	// { MODALTKEY|ControlMask,        XK_space,      spawn,                  {.v = dmenumojishortcmd } },
+	// { MODKEY|MODALTKEY|ControlMask, XK_space,      spawn,                  {.v = dmenumojilongcmd } },
 	{ MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = browsercmd } },
 	{ MODKEY|ControlMask|ShiftMask, XK_Return,     spawn,                  {.v = chatcmd } },
@@ -1091,6 +1108,9 @@ static const Key keys[] = {
 	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
 	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
 	{ MODKEY|ShiftMask,		XK_Escape,     spawn,                  SHCMD("nd.sh") },
+	{ MODKEY,		        XK_apostrophe, spawn,                  SHCMD("theme-set-interactive.sh") },
+	{ MODKEY|ShiftMask,		XK_apostrophe, spawn,                  SHCMD("theme-set-random.sh") },
+	{ MODKEY|MODALTKEY,		XK_apostrophe, spawn,                  SHCMD("theme-toggle-neon.sh") },
 
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 
@@ -1320,7 +1340,7 @@ static const Key keys[] = {
     // { MODKEY|ControlMask,           XK_grave,      setscratch,             {.v = scratchpadcmd } },
     // { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
     
-	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = plexspcmd_p } },
+	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = musicspcmd_p } },
 	{ MODKEY|ShiftMask,             XK_t,          togglescratch,          {.v = trezorspcmd_t } },
 	{ MODKEY|ShiftMask,             XK_b,          togglescratch,          {.v = bitwardenspcmd_b } },
 	{ MODKEY|ShiftMask,             XK_o,          togglescratch,          {.v = resourcesspcmd_o } },
