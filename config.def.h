@@ -542,6 +542,7 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "Textsnatcher", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "Nsxiv", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Blueman-manager", .isfloating = 1, .iscentered = 1)
 	//RULE(.class = "Bitwarden", .isfloating = 1)
 	//RULE(.class = "Plexamp", .isfloating = 1)
 	// RULE(.class = "Gimp", .tags = 1 << 4)
