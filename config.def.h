@@ -441,6 +441,9 @@ static const char *const autostart[] = {
 #if RENAMED_SCRATCHPADS_PATCH
 //static const char *scratchpadcmd[] = {"s", "st", "-n", "spterm", NULL};
 
+// Doit
+static const char *doitspcmd_p[] = {"d", "st", "-n", "doit-sp", "-g", "80x30", "-e", "/home/nicke/.local/bin/doit", NULL};
+
 // Music Player
 // static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-plexamp.sh", NULL};
 // static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-jellyamp.sh", NULL};
@@ -450,6 +453,7 @@ static const char *musicspcmd_p[] = {"p", "/home/nicke/.local/scripts/launch-fei
 static const char *trezorspcmd_t[] = {"t", "/home/nicke/.local/scripts/launch-trezor.sh", NULL};
 static const char *bitwardenspcmd_b[] = {"b", "bitwarden-desktop", NULL};
 static const char *resourcesspcmd_o[] = {"o", "/usr/bin/resources", NULL};
+static const char *calculatorspcmd_c[] = {"c", "gnome-calculator", NULL};
 
 #elif SCRATCHPADS_PATCH
 const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
@@ -541,8 +545,12 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1, .iscentered = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "Textsnatcher", .isfloating = 1, .iscentered = 1)
-	RULE(.class = "Nsxiv", .isfloating = 1, .iscentered = 1)
+	//RULE(.class = "Nsxiv", .isfloating = 1, .iscentered = 1)
+	RULE(.instance = "nsxiv-theme-switcher", .isfloating = 1, .iscentered = 1)
 	RULE(.class = "Blueman-manager", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Syncthing GTK", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "pavucontrol", .isfloating = 1, .iscentered = 1)
+	RULE(.class = "Arandr", .isfloating = 1, .iscentered = 1,  .floatpos = "50% 50% 800W 600H")
 	//RULE(.class = "Bitwarden", .isfloating = 1)
 	//RULE(.class = "Plexamp", .isfloating = 1)
 	// RULE(.class = "Gimp", .tags = 1 << 4)
@@ -555,11 +563,14 @@ static const Rule rules[] = {
 	// RULE(.instance = "plexamp", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
 	// RULE(.instance = "jellyamp", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
 	// RULE(.title = "jellyfin-tui", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
+	RULE(.instance = "doit-sp", .scratchkey = 'd', .isfloating = 1, .iscentered = 1)
 	RULE(.class = "feishin", .scratchkey = 'p', .isfloating = 1, .iscentered = 1)
 
 	RULE(.instance = "trezor suite", .scratchkey = 't', .isfloating = 1, .iscentered = 1)
 	RULE(.instance = "bitwarden", .scratchkey = 'b', .isfloating = 1, .iscentered = 1)
 	RULE(.instance = "resources", .scratchkey = 'o', .isfloating = 1, .iscentered = 1)
+	RULE(.class = "gnome-calculator", .scratchkey = 'c', .isfloating = 1, .iscentered = 1, .floatpos = "50% 50% 360W 616H")
+	RULE(.class = "Com.n1ck3.saga_app", .isfloating = 1, .iscentered = 1, .floatpos = "50% 50% 425W 800H")
 	#elif SCRATCHPADS_PATCH
 	// RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1, .iscentered = 1)
 	#endif // SCRATCHPADS_PATCH
@@ -1103,15 +1114,18 @@ static const Key keys[] = {
 
 	{ MODKEY|ShiftMask,             XK_v,          spawn,                  SHCMD("xfce4-popup-clipman") },
 
-	{ MODKEY|ControlMask|ShiftMask, XK_3,          spawn,                  SHCMD("scrot-display.sh") },
-	{ MODKEY|MODALTKEY|ShiftMask,   XK_3,          spawn,                  SHCMD("scrot-display-clipboard.sh") },
-	{ MODKEY|ControlMask|ShiftMask, XK_4,          spawn,                  SHCMD("scrot-area.sh") },
-	{ MODKEY|MODALTKEY|ShiftMask,   XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
-	{ MODKEY,                       XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
-	{ MODKEY|ShiftMask,		XK_Escape,     spawn,                  SHCMD("nd.sh") },
-	{ MODKEY,		        XK_apostrophe, spawn,                  SHCMD("theme-set-interactive.sh") },
-	{ MODKEY|ShiftMask,		XK_apostrophe, spawn,                  SHCMD("theme-set-random.sh") },
-	{ MODKEY|MODALTKEY,		XK_apostrophe, spawn,                  SHCMD("theme-toggle-neon.sh") },
+	{ MODALTKEY|ControlMask|ShiftMask, XK_3,          spawn,                  SHCMD("scrot-display.sh") },
+	{ MODKEY|MODALTKEY|ShiftMask,      XK_3,          spawn,                  SHCMD("scrot-display-clipboard.sh") },
+	{ MODALTKEY|ControlMask|ShiftMask, XK_4,          spawn,                  SHCMD("scrot-area.sh") },
+	{ MODKEY|MODALTKEY|ShiftMask,      XK_4,          spawn,                  SHCMD("scrot-area-clipboard.sh") },
+	// { MODALTKEY|ControlMask|ShiftMask,   XK_4,          spawn,                  SHCMD("echo $PATH > /home/nicke/PATH.txt") },
+	{ MODKEY,                          XK_Escape,     spawn,                  SHCMD("tts-piper.sh") },
+	{ MODKEY|MODALTKEY,                XK_Escape,     spawn,                  SHCMD("tts-piper.sh -c") },
+	{ MODKEY|ShiftMask,                XK_Escape,     spawn,                  SHCMD("nd.sh") },
+	{ MODKEY|ControlMask|ShiftMask,    XK_Escape,     spawn,                  SHCMD("wd") },
+	{ MODKEY,                          XK_apostrophe, spawn,                  SHCMD("theme-set-interactive.sh") },
+	{ MODKEY|ShiftMask,                XK_apostrophe, spawn,                  SHCMD("theme-set-random.sh") },
+	{ MODKEY|MODALTKEY,                XK_apostrophe, spawn,                  SHCMD("theme-toggle-neon.sh") },
 
 	{ MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
 
@@ -1341,10 +1355,12 @@ static const Key keys[] = {
     // { MODKEY|ControlMask,           XK_grave,      setscratch,             {.v = scratchpadcmd } },
     // { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.v = scratchpadcmd } },
     
+	{ MODKEY|ShiftMask,             XK_d,          togglescratch,          {.v = doitspcmd_p } },
 	{ MODKEY|ShiftMask,             XK_p,          togglescratch,          {.v = musicspcmd_p } },
 	{ MODKEY|ShiftMask,             XK_t,          togglescratch,          {.v = trezorspcmd_t } },
 	{ MODKEY|ShiftMask,             XK_b,          togglescratch,          {.v = bitwardenspcmd_b } },
 	{ MODKEY|ShiftMask,             XK_o,          togglescratch,          {.v = resourcesspcmd_o } },
+	{ MODKEY|ShiftMask,             XK_c,          togglescratch,          {.v = calculatorspcmd_c } },
 
 	#elif SCRATCHPADS_PATCH
 	{ MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
